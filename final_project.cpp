@@ -8,6 +8,7 @@
 #include <random>
 #include <algorithm>
 #include <ctime>
+#include <iomanip>
 
 
 using namespace std;
@@ -61,20 +62,87 @@ Case findCase(int name)
 	temp.value = NULL;
 	return temp;
 }
+
+//Displays values left in ascending order like on the show
 void displayMoneyBoard()
 {
-	cout << "remaining cases" << endl;
+	int lee[26];
+	for( int j=0; j<26; j++ )
+	{
+		lee[j] = 0;
+	}
+	cout << "Remaining Values" << endl;
+	cout << " -------------------" << endl;
 	for (int i = 1; i < gameBoard.size()+1 ; ++i)
 	{	
 		Case temp;
-		temp.name = i;
 		temp = findCase(i);
-		if (temp.name == NULL)
-			cout <<"|X| ";
+		for(int k=0; k<26; k++)
+		{
+			if(temp.value == caseValues[k])
+				lee[k] = caseValues[k];
+		}
+		
+	}
+	for(int x=0; x<26; x++)
+	{
+	    if (lee[x] == 0)
+			cout <<"|    X    | ";
 		else
-			cout <<"|"<<temp.value<<"| ";
+			cout <<"| "<< std::setw(7)<< lee[x]<< " | ";
+		if (lee[x+13] == 0)
+			cout << "    X    |" << endl;
+		else
+			cout << std::setw(7) << lee[x+13] << " |" << endl;
+		cout << " -------------------";
 	}
 	cout << endl;
+}
+
+//Displays boxes left in 4 rows just like on the show
+//Input parameter is myCase
+void displayBoxesLeft(Case mine)
+{
+	Case temp;
+	cout << "  ";
+	for(int i=21; i<=26; i++)
+	{
+		temp = findCase(i);
+		if(temp.name == NULL)
+			cout << "|xx| ";
+		else
+			cout << "|" << temp.name << "| ";
+	}
+	cout << endl;
+	for(int j=14; j<=20; j++)
+	{
+		temp = findCase(j);
+		if(temp.name == NULL)
+			cout << "|xx| ";
+		else
+			cout << "|" << temp.name << "| ";
+	}
+	cout << endl;
+	for(int k=7; k<=13; k++)
+	{
+		temp = findCase(k);
+		if(temp.name == NULL)
+			cout << "|xx| ";
+		else
+			cout << "|" << setw(2) << temp.name << "| ";
+	}
+	cout << endl;
+	cout << "  ";
+	for(int x=1; x<=6; x++)
+	{
+		temp = findCase(x);
+		if(temp.name == NULL)
+			cout << "|xx| ";
+		else
+			cout << "|" << setw(2) << temp.name << "| ";
+	}
+	cout << endl;
+	cout << "YOUR CASE: " << mine.name << endl;
 }
 
 int removeCase(int case_name)
