@@ -66,7 +66,7 @@ Case findCase(int name)
 //Displays values left in ascending order like on the show
 void displayMoneyBoard()
 {
-	int lee[26];
+	double lee[26];
 	for( int j=0; j<26; j++ )
 	{
 		lee[j] = 0;
@@ -84,17 +84,17 @@ void displayMoneyBoard()
 		}
 		
 	}
-	for(int x=0; x<26; x++)
+	for(int x=0; x<13; x++)
 	{
 	    if (lee[x] == 0)
 			cout <<"|    X    | ";
 		else
 			cout <<"| "<< std::setw(7)<< lee[x]<< " | ";
 		if (lee[x+13] == 0)
-			cout << "    X    |" << endl;
+			cout << "   X    |" << endl;
 		else
 			cout << std::setw(7) << lee[x+13] << " |" << endl;
-		cout << " -------------------";
+		cout << " -------------------"<<endl;
 	}
 	cout << endl;
 }
@@ -108,16 +108,17 @@ void displayBoxesLeft(Case mine)
 	for(int i=21; i<=26; i++)
 	{
 		temp = findCase(i);
-		if(temp.name == NULL)
+		if(temp.name == NULL || mine.name==temp.name)
 			cout << "|xx| ";
 		else
 			cout << "|" << temp.name << "| ";
+
 	}
 	cout << endl;
 	for(int j=14; j<=20; j++)
 	{
 		temp = findCase(j);
-		if(temp.name == NULL)
+		if(temp.name == NULL || mine.name==temp.name)
 			cout << "|xx| ";
 		else
 			cout << "|" << temp.name << "| ";
@@ -126,7 +127,7 @@ void displayBoxesLeft(Case mine)
 	for(int k=7; k<=13; k++)
 	{
 		temp = findCase(k);
-		if(temp.name == NULL)
+		if(temp.name == NULL || mine.name==temp.name)
 			cout << "|xx| ";
 		else
 			cout << "|" << setw(2) << temp.name << "| ";
@@ -136,7 +137,7 @@ void displayBoxesLeft(Case mine)
 	for(int x=1; x<=6; x++)
 	{
 		temp = findCase(x);
-		if(temp.name == NULL)
+		if(temp.name == NULL || mine.name==temp.name)
 			cout << "|xx| ";
 		else
 			cout << "|" << setw(2) << temp.name << "| ";
@@ -193,7 +194,7 @@ int main(int argc, char const *argv[])
 		switch(typecase)
 		{
 			case 0:   //welcome screen and case select
-				displayMoneyBoard();
+				//displayMoneyBoard();
 				numRemovedCases = 0;
 				turnNum = 0;
 				cout << "Welcom to Deal or No Deal" << endl;
@@ -207,7 +208,8 @@ int main(int argc, char const *argv[])
 					break;
 				}
 				cout << "You have selected Case number " << myCase.name << endl;
-				removeCase(myCase.name);
+				//CANNOT REMOVE MY CASE
+				displayBoxesLeft(myCase);
 				displayMoneyBoard();
 				typecase = 1;
 				break;
@@ -237,6 +239,7 @@ int main(int argc, char const *argv[])
 								typecase = 2;
 							}
 						}
+				displayBoxesLeft(myCase);
 				displayMoneyBoard();
 				}
 
