@@ -1,1 +1,2 @@
 //i hate school
+//same
