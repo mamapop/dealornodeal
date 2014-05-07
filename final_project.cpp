@@ -21,7 +21,7 @@ struct  Case
 };
 
 //global variables
-double caseValues[26] = {.01, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 2000000, 3000000, 400000, 500000, 750000, 1000000};
+double caseValues[26] = {.01, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000};
 vector<Case> gameBoard;
 int turnNum;
 
@@ -89,11 +89,11 @@ void displayMoneyBoard()
 	    if (lee[x] == 0)
 			cout <<"|    X    | ";
 		else
-			cout <<"| "<< std::setw(7)<< lee[x]<< " | ";
+			cout <<"| "<< std::setw(7)<< std::setprecision(9) << lee[x]<< " | ";
 		if (lee[x+13] == 0)
 			cout << "   X    |" << endl;
 		else
-			cout << std::setw(7) << lee[x+13] << " |" << endl;
+			cout << std::setw(7) << std::setprecision(9) << lee[x+13] << " |" << endl;
 		cout << " -------------------"<<endl;
 	}
 	cout << endl;
