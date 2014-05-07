@@ -1,3 +1,5 @@
+!!!!! THE EXECUTABLE WILL NOT RUN ON THE ECE2524 SERVER. DOWNLOAD THE .EXE AND RUN IT LOCALLY!!!!!!
+
 "Deal or No Deal: Text" text based game of the popular "Deal or No Deal" television game show.  The player chooses a case on display to knock amounts of money off the board, until the user is left with one case. The case will contain how much money the player can win.  In any given round, the user can take another monetary deal from the Banker.
 
 How To Start: Just double click the executable! Or run it in a shell.
