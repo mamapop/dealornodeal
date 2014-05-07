@@ -1,10 +1,3 @@
-//ECE2524 Final Project
-//Deal or No Deal
-//Description: 
-	//text based game of the popular "Deal or No Deal" television game show.  
-	//The player chooses a case on display to knock amounts of money off the board, until the user is left with one case. 
-	//The case will contain how much money the player can win.  
-	//In any given round, the user can take another monetary deal from the Banker.
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
@@ -32,7 +25,7 @@ double caseValues[26] = {.01, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750
 vector<Case> gameBoard;
 int turnNum;
 int numRemovedCases;
-enum SwitchType {welcome, gameCase, offer, acceptedOffer, playAgainPrompt, finalRound};
+enum SwitchType {welcome, gameCase, offer, acceptedOffer, playAgainPrompt, finalRound} typecase;
 
 //build the gameboard vector
 void nameBuild()
@@ -191,14 +184,51 @@ double getOffer()
 
 	return (avgVal * turnNum)/10;
 }
-
+//Command page for / functions
+string commandPage(string command)
+{
+	if (command == "/h")
+		cout<<"INSTRUCTIONS ON HOW TO PLAY GAME"<<endl;
+	else if (command == "/v")
+		displayMoneyBoard();
+	else if (command == "/c")
+	{
+		cout<<"Created in May 2014 in VT's ECE2524 Class"<<endl;
+		cout<<"Programmers:"<<endl<<"\tJacqueline Duong"<<endl<<"\tBrian Kaplan"<<endl<<"\tGreg Scott"<<endl;
+	}
+	else 
+		cout << "Invalid Command."<<endl;
+	if (typecase == welcome || typecase == gameCase)
+	{
+		cout<<"Continue playing!! Choose a case!!"<<endl<<endl;
+	}
+	else
+		cout<<"Continue playing!! What will you chose? (y/n)"<<endl<<endl;
+	cin >> command;
+	return command;
+}
+//reads cin input, if its a / command, go to specific commandPage
+//returns cin string
+string readInput()
+{
+	string command = "";
+	cin >> command;
+	char c = command.at(0);
+	while (c == '/')
+	{
+		command = commandPage(command);
+		c = command.at(0);
+	}
+	return command;
+}
+//goes through the case loop for player to choose cases
 void chooseCases(int n, Case myCase)
 {
 	Case remove_Case;
 	for (int i = n; i > 0; i--)
 	{
 			displayBoxesLeft(myCase);
-			cin >> remove_Case.name;
+			remove_Case.name = stoi(readInput());
 			remove_Case = findCase(remove_Case.name);
 			if(remove_Case.name == NULL)
 			{
@@ -219,17 +249,18 @@ void chooseCases(int n, Case myCase)
 			}
 	}
 }
-
 int main(int argc, char const *argv[])
 {	
 	char buf[30];
-	enum SwitchType typecase = welcome;
+	typecase = welcome;
 	Case myCase;
 	int n;
 	string restart, decision;
 	double prevOffer;
+	string command;
 	while(1)
 	{
+
 		switch(typecase)
 		{
 			case welcome:   //welcome screen and YOUR case select
@@ -240,11 +271,10 @@ int main(int argc, char const *argv[])
 				turnNum = 0;
 				restart = "";
 				decision = "";
-				cout << "Welcome to Deal or No Deal" << endl;
-				displayMoneyBoard();
+				cout << endl<<endl<<"Welcome to Deal or No Deal" << endl;
+				cout << "At any point in the game, type /h for help, /v to view the money board, /c for credits"<<endl;
 				cout << "Please type in your lucky case! (1-26) :" << endl << endl;
-				cin >> myCase.name;
-
+				myCase.name = stoi(readInput());
 				myCase = findCase(myCase.name);	//selects the case the user typed in by matching the random vector to the caseValue Array
 				if(myCase.name == NULL)
 				{
@@ -276,7 +306,7 @@ int main(int argc, char const *argv[])
 				cout << "The banker would like to make an offer of $" << buf << endl;
 				cout << "DEAL (y) OR NO DEAL(n)?" << endl;
 				prevOffer = getOffer();
-				cin >> decision;
+				decision = readInput();
 				if (decision == "y")
 					typecase = acceptedOffer;
 				else if (decision == "n" && numRemovedCases==24) //if there is only one more box on the board
@@ -300,7 +330,7 @@ int main(int argc, char const *argv[])
 				break;
 			case playAgainPrompt://play again screen
 				cout << "Would you like to play again? (y/n)"<<endl;
-				cin >> restart;
+				restart = readInput();
 				if (restart == "n")
 				{
 					cout << "Thanks for playing!"<<endl;
