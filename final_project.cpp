@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <ctime>
 #include <iomanip>
+#include <stdexcept>
 
 
 using namespace std;
@@ -228,7 +229,16 @@ void chooseCases(int n, Case myCase)
 	for (int i = n; i > 0; i--)
 	{
 			displayBoxesLeft(myCase);
-			remove_Case.name = stoi(readInput());
+			try
+			{
+				remove_Case.name = stoi(readInput());
+			}
+			catch (...)
+			{
+				cout << "error ";
+				remove_Case.name = NULL;
+			}
+			
 			remove_Case = findCase(remove_Case.name);
 			if(remove_Case.name == NULL)
 			{
@@ -274,7 +284,14 @@ int main(int argc, char const *argv[])
 				cout << endl<<endl<<"Welcome to Deal or No Deal" << endl;
 				cout << "At any point in the game, type /h for help, /v to view the money board, /c for credits"<<endl;
 				cout << "Please type in your lucky case! (1-26) :" << endl << endl;
-				myCase.name = stoi(readInput());
+				try
+				{
+					myCase.name = stoi(readInput());
+				}
+				catch (...)
+				{
+					cout << "error ";
+				}		
 				myCase = findCase(myCase.name);	//selects the case the user typed in by matching the random vector to the caseValue Array
 				if(myCase.name == NULL)
 				{
@@ -299,7 +316,9 @@ int main(int argc, char const *argv[])
 
 			case offer: //this is the offer
 				sprintf(buf, "%.2f", getOffer());
-				if (getOffer()>prevOffer)
+				if(getOffer() == prevOffer)
+					cout << "";
+				else if (getOffer()>prevOffer)
 					cout << "Congrats! Your offer has gone up."<<endl;
 				else
 					cout << "Oof. Your offer has gone down..."<<endl;
@@ -336,9 +355,10 @@ int main(int argc, char const *argv[])
 					cout << "Thanks for playing!"<<endl;
 					exit(0);
 				}
-				if (restart == "y")
+				else if (restart == "y")
 					typecase = welcome;
-				break;
+				else
+					break;
 			case finalRound: //opening your own box...last roud possible
 				sprintf(buf, "%.2f", getOffer());
 				cout << "Your Case #"<<myCase.name<<" contained $"<<myCase.value<<endl;
