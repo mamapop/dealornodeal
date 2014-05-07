@@ -185,7 +185,8 @@ int main(int argc, char const *argv[])
 	Case remove_Case;
 	int numRemovedCases;
 	int n = 6;
-
+	string restart = "";
+	string decision = "";
 	nameBuild();
 	shuffle();
 	valueBuild();
@@ -194,10 +195,10 @@ int main(int argc, char const *argv[])
 		switch(typecase)
 		{
 			case 0:   //welcome screen and case select
-				//displayMoneyBoard();
 				numRemovedCases = 0;
 				turnNum = 0;
-				cout << "Welcom to Deal or No Deal" << endl;
+				cout << "Welcome to Deal or No Deal" << endl;
+				displayMoneyBoard();
 				cout << "Please select a case" << endl << endl;
 				cin >> myCase.name;
 
@@ -208,8 +209,6 @@ int main(int argc, char const *argv[])
 					break;
 				}
 				cout << "You have selected Case number " << myCase.name << endl;
-				//CANNOT REMOVE MY CASE
-				displayBoxesLeft(myCase);
 				displayMoneyBoard();
 				typecase = 1;
 				break;
@@ -219,7 +218,7 @@ int main(int argc, char const *argv[])
 				cout << "Please select "<< n << " cases to remove from the game " << endl;	
 				for (int i = n; i > 0; i--)
 				{
-							
+						displayBoxesLeft(myCase);
 						cin >> remove_Case.name;
 						remove_Case = findCase(remove_Case.name);
 						if(remove_Case.name == NULL)
@@ -239,24 +238,47 @@ int main(int argc, char const *argv[])
 								typecase = 2;
 							}
 						}
+				}
 				displayBoxesLeft(myCase);
 				displayMoneyBoard();
-				}
-
 				if(n !=  1)
 					n--;
 				break;
 
 			case 2: //this is the deal case
-
-				double offer = getOffer();
-				string decision;
 				cout << turnNum << endl;
-				displayMoneyBoard();
-				cout << "The banker would like to make an offer of $" << offer << endl;
-				cout << "Are you feeling lucky? y/n" << endl;
+				cout << "The banker would like to make an offer of $" << getOffer() << endl;
+				cout << "DEAL (y) OR NO DEAL(n)?" << endl;
 				cin >> decision;
-
+				if (decision == "y")
+					typecase = 3;
+				else if (decision == "n")
+					typecase = 1;
+				else
+					cout <<"invalid"<<endl;
+				break;
+			case 3:
+				cout << "Congratulations. You win $"<<getOffer()<<endl;
+				cout << "Your Case #"<<myCase.name<<" contained $"<<myCase.value<<endl;
+				if (myCase.value > getOffer())
+					cout <<"...Should have gone with your original case. Oh well!...."<<endl;
+				else
+					cout <<"Nice Decision!"<<endl;
+				//open other boxes?
+				cout << "Would you like to play again? (y/n)"<<endl;
+				cin >> restart;
+				if (restart == "n")
+				{
+					cout << "Thanks for playing!"<<endl;
+					exit(0);
+				}
+				if (restart == "y")
+					typecase = 4;
+				break;
+			case 4: //restart values
+				//restart everything
+				cout<< "NEW GAME"<<endl;
+			break;
 		}
 		
 	}
