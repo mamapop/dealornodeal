@@ -1,9 +1,8 @@
 "Deal or No Deal: Text" text based game of the popular "Deal or No Deal" television game show.  The player chooses a case on display to knock amounts of money off the board, until the user is left with one case. The case will contain how much money the player can win.  In any given round, the user can take another monetary deal from the Banker.
 
-Description of the project. Be sure to explain how you plan to use
-elements of Unix design philosophy to implement the project.
+The project starts off by asking the user to select one case...this is their case that the user will open in the final round if No Deal is taken. AFter each round, the user will be prompted to select a certain amount of cases (mirrors the actual television game show).  After opening each case, the program will tell the user how much money is now "off the board" and is no longer in play. There will also be a display of what cases are left on the board and the "money board" which shows how much money is left in the cases. After every round, The Banker will make an offer to the user based on an algorithm.  The user can either take the $$ offer, or continue the game.  When there is only one box remaining on the board, the user will have an offer, and if the user does not take it, the Case that the user took the first round will be opened. Then, the game is over. 
 
-DESCRIPTION OF THE PROJECT
+At any point in the game, the user can type "\" commands such as "\h" for help, "\c" for credits, and "\v" to view the money board.
 
 Unix Philosophy:
 
