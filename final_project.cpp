@@ -189,7 +189,10 @@ double getOffer()
 string commandPage(string command)
 {
 	if (command == "/h")
-		cout<<"INSTRUCTIONS ON HOW TO PLAY GAME"<<endl;
+	{
+		cout<<"If you don't know how to play Deal or No Deal check out the instructions on github!!!"<<endl;
+		cout<<"The command line has strict error checking so just follow the directions!!!" << endl;
+	}
 	else if (command == "/v")
 		displayMoneyBoard();
 	else if (command == "/c")
