@@ -70,7 +70,7 @@ void displayMoneyBoard()
 	{
 		lee[j] = 0;
 	}
-	cout << "Remaining Values" << endl;
+	cout << "Remaining $$$ In Cases" << endl;
 	cout << " -------------------" << endl;
 	for (int i = 1; i < gameBoard.size()+1 ; ++i)
 	{	
@@ -102,6 +102,7 @@ void displayMoneyBoard()
 //Input parameter is myCase
 void displayBoxesLeft(Case mine)
 {
+	cout<< "\nCases Left: "<<endl;
 	Case temp;
 	cout << "  ";
 	for(int i=21; i<=26; i++)
@@ -142,7 +143,7 @@ void displayBoxesLeft(Case mine)
 			cout << "|" << setw(2) << temp.name << "| ";
 	}
 	cout << endl;
-	cout << "YOUR CASE: " << mine.name << endl;
+	cout << "YOUR CASE: " << mine.name << endl <<endl;
 }
 
 int removeCase(int case_name)
@@ -184,15 +185,17 @@ int main(int argc, char const *argv[])
 	Case remove_Case;
 	int numRemovedCases, n;
 	string restart, decision;
+	double prevOffer;
 	while(1)
 	{
 		switch(typecase)
 		{
-			case 0:   //welcome screen and case select
+			case 0:   //welcome screen and YOUR case select
 				gameBoard.clear();
 				nameBuild();
 				shuffle();
 				valueBuild();
+				prevOffer = 0;
 				n = 6;
 				numRemovedCases = 0;
 				turnNum = 0;
@@ -249,8 +252,13 @@ int main(int argc, char const *argv[])
 
 			case 2: //this is the offer
 				sprintf(buf, "%.2f", getOffer());
+				if (getOffer()>prevOffer)
+					cout << "Congrats! Your offer has gone up."<<endl;
+				else
+					cout << "Oof. Your offer has gone down..."<<endl;
 				cout << "The banker would like to make an offer of $" << buf << endl;
 				cout << "DEAL (y) OR NO DEAL(n)?" << endl;
+				prevOffer = getOffer();
 				cin >> decision;
 				if (decision == "y")
 					typecase = 3;
@@ -262,7 +270,7 @@ int main(int argc, char const *argv[])
 					cout <<"invalid"<<endl;
 				decision = "";
 				break;
-			case 3:
+			case 3: //accepted offer screen
 				sprintf(buf, "%.2f", getOffer());
 				cout << "Congratulations. You win $"<<buf<<endl;
 				cout << "Your Case #"<<myCase.name<<" contained $"<<myCase.value<<endl;
@@ -270,9 +278,10 @@ int main(int argc, char const *argv[])
 					cout <<"...Should have gone with your original case. Oh well!...."<<endl;
 				else
 					cout <<"Nice Decision!"<<endl;
+				typecase = 4;
 				//open other boxes?
 				break;
-			case 4: 
+			case 4: //play again screen
 				cout << "Would you like to play again? (y/n)"<<endl;
 				cin >> restart;
 				if (restart == "n")
@@ -283,7 +292,7 @@ int main(int argc, char const *argv[])
 				if (restart == "y")
 					typecase = 0;
 				break;
-			case 5:
+			case 5: //opening your own box...last roud possible
 				sprintf(buf, "%.2f", getOffer());
 				cout << "Your Case #"<<myCase.name<<" contained $"<<myCase.value<<endl;
 				cout << "Congratulations. You win $"<<myCase.value<<endl;
