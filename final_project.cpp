@@ -1,3 +1,10 @@
+//ECE2524 Final Project
+//Deal or No Deal
+//Description: 
+	//text based game of the popular "Deal or No Deal" television game show.  
+	//The player chooses a case on display to knock amounts of money off the board, until the user is left with one case. 
+	//The case will contain how much money the player can win.  
+	//In any given round, the user can take another monetary deal from the Banker.
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
