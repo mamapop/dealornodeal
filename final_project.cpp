@@ -195,6 +195,8 @@ string commandPage(string command)
 	}
 	else if (command == "/v")
 		displayMoneyBoard();
+	else if (command == "/q")
+		exit(0);
 	else if (command == "/c")
 	{
 		cout<<"Created in May 2014 in VT's ECE2524 Class"<<endl;
@@ -285,7 +287,7 @@ int main(int argc, char const *argv[])
 				restart = "";
 				decision = "";
 				cout << endl<<endl<<"Welcome to Deal or No Deal" << endl;
-				cout << "At any point in the game, type /h for help, /v to view the money board, /c for credits"<<endl;
+				cout << "At any point in the game, type /h for help, /v to view the money board, /c for credits and /q to quit the game"<<endl;
 				cout << "Please type in your lucky case! (1-26) :" << endl << endl;
 				try
 				{
